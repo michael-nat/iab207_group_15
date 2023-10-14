@@ -11,6 +11,7 @@ class User(db.Model,UserMixin):
 	# password should never stored in the DB, an encrypted password is stored
 	# the storage should be at least 255 chars long, depending on your hashing algorithm
     UserPass_hash = db.Column(db.String(255), nullable=False)
+    Phone_Num = db.Column(db.NUMERIC(20), nullable=False)
     # relation to call user.comments and comment.created_by
     Comments = db.relationship('Comment', backref='user')
     
