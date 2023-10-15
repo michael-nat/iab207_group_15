@@ -33,7 +33,7 @@
               >
               <h5 class="mt-0">{{concert.EventName}}</h5>
               <p><br />{{concert.EventInfo}}</p>
-              <a href="#" class="btn btn-danger">Book Now</a>
+              <a href="{{ url_for('bookings.book', id=concert.id) }}" class="btn btn-danger">Book Now</a>
             </div>
           </div>
         </div>

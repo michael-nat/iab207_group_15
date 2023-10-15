@@ -44,11 +44,21 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     CommentContent = db.Column(db.String(400))
     created_at = db.Column(db.DateTime, default=datetime.now())
-    # add the foreign key
     UserID = db.Column(db.Integer, db.ForeignKey('User.id'))
     EventID = db.Column(db.Integer, db.ForeignKey('Event.id'))
 
     # string print method
     def __repr__(self):
         return f"Comment: {self.CommentContent}"
+    
+class Booking(db.Model):
+    __tablename__ = 'Bookings'
+    id = db.Column(db.Integer, primary_key=True)
+    TicketQuantity = db.Column(db.Integer)
+# add the foreign key
+    UserID = db.Column(db.Integer, db.ForeignKey('User.id'))
+    EventID = db.Column(db.Integer, db.ForeignKey('Event.id'))
+    # Integer print method
+    def __repr__(self):
+        return f"Ticket quantity: {self.TicketQuantity}"
     
