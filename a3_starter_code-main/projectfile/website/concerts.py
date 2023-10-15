@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request ,redirect, url_for
+from flask import Blueprint, render_template, flash, request ,redirect, url_for
 from .models import Concert, Comment
 from .forms import ConcertForm,CommentForm
 from . import db
@@ -30,8 +30,8 @@ def create():
     EventDateTime=form.EventDateTime.data,
     EventLocation=form.EventLocation.data,
     EventInfo=form.EventInfo.data,
-    EventStatus=form.EventStatus.data
-
+    EventStatus=form.EventStatus.data,
+    EventTicketCount=form.EventStatus.data
     )
     
     # add the object to the db session
@@ -39,6 +39,7 @@ def create():
     # commit to the database
     db.session.commit()
     print('Successfully created new concert', 'success')
+    flash('Event created')
     return redirect(url_for('concert.create'))
   return render_template('concerts/create.html', form=form)
 

@@ -30,6 +30,7 @@ class Concert(db.Model):
     EventInfo = db.Column(db.String(200))
     EventPrice = db.Column(db.DECIMAL(9, 2))
     EventStatus = db.Column(db.String(20))
+    EventTicketCount = db.Column(db.Integer)
     # ... Create the Comments db.relationship
 	# relation to call destination.comments and comment.destination
     Comments = db.relationship('Comment', backref='concert')

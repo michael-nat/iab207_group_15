@@ -7,19 +7,19 @@ from flask_wtf.file import FileRequired, FileField, FileAllowed
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'png', 'jpg', 'jpeg'}
 
 class ConcertForm(FlaskForm):
-  EventName = StringField('EventName', validators=[InputRequired()])
+  EventName = StringField('Event Name', validators=[InputRequired()])
   # adding two validators, one to ensure input is entered and other to check if the 
   #description meets the length requirements
   EventDesc = TextAreaField('Description', validators = [InputRequired()])
   EventImage = FileField('Concert Image', validators=[
     FileRequired(message='Image cannot be empty'),
     FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
-  EventDateTime = StringField('DateTime', validators=[InputRequired()])
+  EventDateTime = StringField('Date and Time', validators=[InputRequired()])
   EventLocation = StringField('Location', validators=[InputRequired()])
-  EventInfo = StringField('EventInformation', validators=[InputRequired()])
+  EventInfo = StringField('Additional Information', validators=[InputRequired()])
   EventPrice = StringField('Price', validators=[InputRequired()])
-  EventStatus = StringField('Status', validators=[InputRequired()])
-  
+  EventStatus = StringField('Status', validators=[InputRequired()])  # remove when event status information is implemented
+  EventTicketCount = StringField('Number of Tickets', validators=[InputRequired()])
   submit = SubmitField("Create")
 
 # creates the login information
