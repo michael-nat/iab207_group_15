@@ -40,6 +40,8 @@ def create_app():
     app.register_blueprint(auth.authbp)
     from . import bookings
     app.register_blueprint(bookings.bookbp)
+    from . import userbooking
+    app.register_blueprint(userbooking.usebookbp)
     
     @app.errorhandler(404) 
     # inbuilt function which takes error as parameter 
