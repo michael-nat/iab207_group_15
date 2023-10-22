@@ -13,11 +13,15 @@ usebookbp = Blueprint('userbooking', __name__)
 @login_required
 def userbookings():
     id= current_user.id
-    user = db.session.scalar(db.select(User).where(User.id==id))
-    # concerts = db.session.scalars(db.select(Concert).where(Concert.id in (db.select(Booking.EventID).where(Booking.UserID is id ))))  
-    sql_query = text("SELECT * FROM Event WHERE Event.id in ( SELECT EventID from Bookings where UserID = 2)")
-    cursor = db.session.execute(sql_query)
-    concerts = db.session.scalars(cursor)
+    userquery = db.select(Booking.EventID).where(Booking.UserID==id)
+    userresult = db.session.execute(userquery).scalars()
+    userbookings = userresult.all()
+    
+    # print(userbookings)
+    
+    concerts = db.session.scalars(db.select(Concert).where(Concert.id.in_(userbookings)))
+    
     return render_template('user/bookings.html',concerts = concerts)
+
 
 
