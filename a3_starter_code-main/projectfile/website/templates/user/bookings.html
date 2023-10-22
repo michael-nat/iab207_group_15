@@ -24,6 +24,12 @@
                 >
                   Edit Booking
                 </a>
+                <a
+                  href="{{ url_for('concert.show', id=concert.id) }}"
+                  class="btn btn-danger"
+                >
+                  Cancel Booking
+                </a>
               </div>
             </div>
             {% endfor %}
