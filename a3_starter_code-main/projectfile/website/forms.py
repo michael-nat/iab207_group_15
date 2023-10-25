@@ -45,6 +45,10 @@ class BookingForm(FlaskForm):
     TicketQuantity = IntegerField('Number of Tickets', validators=[InputRequired()])
     submit = SubmitField("Purchase")
 
+class UpdateBookingForm(FlaskForm):
+    TicketQuantity = IntegerField('Number of Tickets', validators=[InputRequired()])
+    submit = SubmitField("Update")
+
     
 class CommentForm(FlaskForm):
   CommentContent = TextAreaField('Comment', [InputRequired()])
