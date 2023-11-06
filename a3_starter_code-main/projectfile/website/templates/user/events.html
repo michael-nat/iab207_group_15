@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h2>My Events</h2>
+
+    <div class="card-group">
+        {% for event in user_events %}
+        <div class="card mx-3">
+            <img class="card-img-top" src="{{ event.EventImage }}" alt="Event Image" />
+            <div class="card-body">
+                <h5 class="card-title">{{ event.EventName }}</h5>
+                <p class="card-text">{{ event.EventDesc }}</p>
+            </div>
+            <div class="card-footer">
+                <a href="{{ url_for('events.edit', id=event.id) }}" class="btn btn-primary">Edit Event</a>
+                <a href="{{ url_for('events.delete', id=event.id) }}" class="btn btn-danger">Delete Event</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock %}
