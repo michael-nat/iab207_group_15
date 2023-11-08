@@ -50,19 +50,25 @@ def create_event():
 def edit_event(id):
     event = Concert.query.get(id)
 
-    if event is None or event.userCreator != current_user:
-        flash('Event not found or unauthorized', 'danger')
-        return redirect(url_for('events.events'))
-
     form = ConcertForm(obj=event)
 
     if form.validate_on_submit():
-        form.populate_obj(event)
+        event.EventName = form.EventName.data
+        event.EventDesc = form.EventDesc.data
+        event.EventDateTime = form.EventDateTime.data
+        event.EventLocation = form.EventLocation.data
+        event.EventInfo = form.EventInfo.data
+        event.EventPrice = form.EventPrice.data
+        event.EventTicketCount = form.EventTicketCount.data
+
+        if form.EventImage.data:
+            event.EventImage = check_upload_file(form)
+
         db.session.commit()
         flash('Event updated successfully', 'success')
         return redirect(url_for('events.events'))
 
-    return render_template('edit_event.html', form=form, event=event)
+    return render_template('user/eventsedit.html', form=form, event=event)
 
 @my_events_bp.route('/<int:id>/delete', methods=['GET', 'POST'])
 @login_required
