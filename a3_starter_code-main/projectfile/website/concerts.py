@@ -31,7 +31,8 @@ def create():
     EventLocation=form.EventLocation.data,
     EventInfo=form.EventInfo.data,
     EventStatus=form.EventStatus.data,
-    EventTicketCount=form.EventStatus.data
+    EventTicketCount=form.EventStatus.data,
+    UserID=current_user.id
     )
     
     # add the object to the db session
@@ -68,12 +69,3 @@ def comment(id):
       db.session.commit() 
       print('Your comment has been added', 'success') 
     return redirect(url_for('concert.show', id=id))
-
-
-
-
-@destbp.route('/events')
-@login_required
-def events():
-    user_events = Concert.query.filter_by(user_id=current_user).all()
-    return render_template('events.html', user_events=user_events)

@@ -3,9 +3,11 @@ from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 from flask_bcrypt import Bcrypt
+from flask_migrate import Migrate
 import datetime
 
 db = SQLAlchemy()
+
 
 def create_app():
     app = Flask(__name__)
@@ -42,6 +44,8 @@ def create_app():
     app.register_blueprint(bookings.bookbp)
     from . import userbooking
     app.register_blueprint(userbooking.usebookbp)
+    from . import events
+    app.register_blueprint(events.my_events_bp)
     
     @app.errorhandler(404) 
     # inbuilt function which takes error as parameter 
@@ -54,6 +58,9 @@ def create_app():
     def get_context():
       year = datetime.datetime.today().year
       return dict(year=year)
+    
+    
+    migrate = Migrate(app, db)
 
     return app
 

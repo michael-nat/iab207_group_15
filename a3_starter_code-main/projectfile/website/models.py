@@ -31,13 +31,15 @@ class Concert(db.Model):
     EventPrice = db.Column(db.DECIMAL(9, 2))
     EventStatus = db.Column(db.String(20))
     EventTicketCount = db.Column(db.Integer)
+    UserId = db.Column(db.Integer, db.ForeignKey('User.id'))
+    userCreator = db.relationship('User', backref='events_created')
     # ... Create the Comments db.relationship
-	# relation to call destination.comments and comment.destination
+    # relation to call destination.comments and comment.destination
     Comments = db.relationship('Comment', backref='concert')
-	
+
     # string print method
     def __repr__(self):
-        return f"Name: {self.name}"
+        return f"Name: {self.EventName}"
 
 class Comment(db.Model):
     __tablename__ = 'Comments'
