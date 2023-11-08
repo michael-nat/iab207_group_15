@@ -9,7 +9,7 @@ ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'png', 'jpg', 'jpeg'}
 class ConcertForm(FlaskForm):
   EventName = StringField('Event Name', validators=[InputRequired()])
   # adding two validators, one to ensure input is entered and other to check if the 
-  #description meets the length requirements
+  # description meets the length requirements
   EventDesc = TextAreaField('Description', validators = [InputRequired()])
   EventImage = FileField('Concert Image', validators=[
     FileRequired(message='Image cannot be empty'),
@@ -32,7 +32,7 @@ class UpdateConcertForm(FlaskForm):
     EventLocation = StringField('Location', validators=[InputRequired()])
     EventInfo = StringField('Additional Information', validators=[InputRequired()])
     EventPrice = StringField('Price', validators=[InputRequired()])
-    EventStatus = SelectField('Status', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('cancelled', 'Cancelled'), ('sold out', 'Sold Out')], validators=[InputRequired()])
+    EventStatus = StringField('Status', validators=[InputRequired()])
     EventTicketCount = StringField('Number of Tickets', validators=[InputRequired()])
     submit = SubmitField("Update")
 
