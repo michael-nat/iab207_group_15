@@ -70,3 +70,10 @@ def comment(id):
     return redirect(url_for('concert.show', id=id))
 
 
+
+
+@destbp.route('/events')
+@login_required
+def events():
+    user_events = Concert.query.filter_by(user_id=current_user).all()
+    return render_template('events.html', user_events=user_events)

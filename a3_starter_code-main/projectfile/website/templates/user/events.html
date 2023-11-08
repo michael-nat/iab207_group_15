@@ -1,17 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
 <div class="container">
     <h2>My Events</h2>
 
     <div class="card-group">
         {% for event in user_events %}
         <div class="card mx-3">
-            <img class="card-img-top" src="{{ concert.EventImage }}" alt="Event Image" />
+            <img class="card-img-top" src="{{ event.EventImage }}" alt="Event Image" />
             <div class="card-body">
-                <h5 class="card-title">{{concert.EventName }}</h5>
-                <p class="card-text">{{concert.EventDesc }}</p>
+                <h5 class="card-title">{{ concert.EventName }}</h5>
+                <p class="card-text">{{ concert.EventDesc }}</p>
             </div>
             <div class="card-footer">
                 <a href="{{ url_for('events.edit', id=event.id) }}" class="btn btn-primary">Edit Event</a>
@@ -21,5 +20,4 @@
         {% endfor %}
     </div>
 </div>
-
 {% endblock %}
