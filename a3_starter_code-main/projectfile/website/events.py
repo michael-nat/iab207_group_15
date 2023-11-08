@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, flash, request, redirect, url_for
 from .models import Concert, Comment
-from .forms import ConcertForm
+from .forms import ConcertForm, UpdateConcertForm
 from . import db
 from flask_login import login_required, current_user
 import os
@@ -8,12 +8,11 @@ from werkzeug.utils import secure_filename
 
 my_events_bp = Blueprint('events', __name__, url_prefix='/events')
 
-@my_events_bp.route('/events')
+@my_events_bp.route('/')
 @login_required
 def events():
     # Query events created by the current user
     user_events = Concert.query.filter_by(userCreator=current_user).all()
-    print(user_events)
     return render_template('user/events.html', user_events=user_events)
 
 @my_events_bp.route('/create', methods=['GET', 'POST'])
@@ -50,7 +49,7 @@ def create_event():
 def edit_event(id):
     event = Concert.query.get(id)
 
-    form = ConcertForm(obj=event)
+    form = UpdateConcertForm(obj=event)
 
     if form.validate_on_submit():
         event.EventName = form.EventName.data

@@ -18,7 +18,7 @@ class ConcertForm(FlaskForm):
   EventLocation = StringField('Location', validators=[InputRequired()])
   EventInfo = StringField('Additional Information', validators=[InputRequired()])
   EventPrice = StringField('Price', validators=[InputRequired()])
-  EventStatus = StringField('Status', validators=[InputRequired()])  # remove when event status information is implemented
+  EventStatus = SelectField('Status', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('cancelled', 'Cancelled'), ('sold out', 'Sold Out')], validators=[InputRequired()])
   EventTicketCount = StringField('Number of Tickets', validators=[InputRequired()])
   submit = SubmitField("Create")
 
@@ -32,7 +32,7 @@ class UpdateConcertForm(FlaskForm):
     EventLocation = StringField('Location', validators=[InputRequired()])
     EventInfo = StringField('Additional Information', validators=[InputRequired()])
     EventPrice = StringField('Price', validators=[InputRequired()])
-    EventStatus = StringField('Status', validators=[InputRequired()])
+    EventStatus = SelectField('Status', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('cancelled', 'Cancelled'), ('sold out', 'Sold Out')], validators=[InputRequired()])
     EventTicketCount = StringField('Number of Tickets', validators=[InputRequired()])
     submit = SubmitField("Update")
 
