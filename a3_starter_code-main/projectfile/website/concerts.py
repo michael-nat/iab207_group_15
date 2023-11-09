@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, flash, request ,redirect, url_for
 from .models import Concert, Comment
 from .forms import ConcertForm,CommentForm
+from .status import showEventStatus
 from . import db
 import os
 from werkzeug.utils import secure_filename
@@ -13,8 +14,9 @@ destbp = Blueprint('concert', __name__, url_prefix='/concerts')
 @destbp.route('/<id>')
 def show(id):
     concert = db.session.scalar(db.select(Concert).where(Concert.id==id))
+    status = showEventStatus()
     cform = CommentForm()   
-    return render_template('concerts/show.html', concert = concert, form = cform)
+    return render_template('concerts/show.html', concert = concert, status = status, form = cform)
 
 @destbp.route('/create', methods = ['GET', 'POST'])
 @login_required

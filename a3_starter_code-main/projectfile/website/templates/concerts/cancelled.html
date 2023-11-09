@@ -11,7 +11,7 @@
 
       <div class="float-right text-right">
         <p class="mb-0">{{concert.EventPrice}}</p>
-        <span class="badge text-bg-dark">{{status.EventStatus}}</span>
+        <span class="badge text-bg-dark">{{concert.EventStatus}}</span>
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
               >
               <h5 class="mt-0">{{concert.EventName}}</h5>
               <p><br />{{concert.EventInfo}}</p>
-              <a href="{{ url_for('bookings.book', id=concert.id) }}" class="btn btn-danger">Book Now</a>
+              <p>This event has been cancelled.</p>
             </div>
           </div>
         </div>
