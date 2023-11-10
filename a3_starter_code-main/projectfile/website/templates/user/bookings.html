@@ -26,7 +26,7 @@
                 <td><img class="img-fluid" style="width: 100px; height: 100px;" src="{{ concert.EventImage }}" alt="Event Image" /></td>
                 <td>{{ concert.EventName }}</td>
                 <td>{{ concert.EventDesc }}</td>
-                <td>{{ tickets[loop.index-1].TicketQuantity }}</td>
+                <td>{{ tickets[loop.index-1]}}</td>
                 <td>
                     <a href="{{ url_for('bookings.edit', id=concert.id) }}" class="btn btn-primary">Edit Booking</a>
                     <a href="{{ url_for('bookings.delete', id=concert.id) }}" class="btn btn-danger">Cancel Booking</a>

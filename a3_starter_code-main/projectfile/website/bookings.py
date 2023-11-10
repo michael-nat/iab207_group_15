@@ -36,6 +36,7 @@ def edit(id):
     
 
       db.session.delete(delbooking)
+      db.session.commit() 
       booking = Booking(TicketQuantity=ubform.TicketQuantity.data, UserID = current_user.id, EventID = id) 
       
       db.session.add(booking) 
