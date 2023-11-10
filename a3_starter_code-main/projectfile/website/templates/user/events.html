@@ -2,23 +2,33 @@
 
 {% block content %}
 <div class="container">
-    <h2>My Events</h2>
+    <img src="website/static/image/header.jpeg" class="img-fluid" alt="Header Image">
+    <h2 class="mb-4">My Events</h2>
+    <p class="lead">Here are your events. Manage and explore them below:</p>
     <a href="{{ url_for('events.create_event') }}" class="btn btn-primary">Create new event</a>
 
-    <div class="card-group">
-        {% for event in user_events %}
-        <div class="card mx-3">
-            <img class="card-img-top" src="{{ event.EventImage }}" alt="Event Image" />
-            <div class="card-body">
-                <h5 class="card-title">{{ event.EventName }}</h5>
-                <p class="card-text">{{ event.EventDesc }}</p>
-            </div>
-            <div class="card-footer">
-                <a href="{{ url_for('events.edit_event', id=event.id) }}" class="btn btn-primary">Edit Event</a>
-                <a href="{{ url_for('events.delete_event', id=event.id) }}" class="btn btn-danger">Cancel Event</a>
-            </div>
-        </div>
-        {% endfor %}
-    </div>
+    <table class="table mt-4">
+        <thead>
+            <tr>
+                <th scope="col">Event Image</th>
+                <th scope="col">Event Name</th>
+                <th scope="col">Event Description</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in user_events %}
+            <tr>
+                <td><img class="img-fluid" style="width: 100px; height: 100px;" src="{{ event.EventImage }}" alt="Event Image" /></td>
+                <td>{{ event.EventName }}</td>
+                <td>{{ event.EventDesc }}</td>
+                <td>
+                    <a href="{{ url_for('events.edit_event', id=event.id) }}" class="btn btn-primary">Edit Event</a>
+                    <a href="{{ url_for('events.delete_event', id=event.id) }}" class="btn btn-danger">Cancel Event</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </div>
 {% endblock %}
