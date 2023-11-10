@@ -5,36 +5,36 @@
 
 {% block content %}
 <div class="container">
-  <img src="website/static/image/header.jpeg" class="img-fluid" alt="Header Image">
-  <h2 class="mb-4">My Bookings</h2>
-  <p class="lead">Here are your bookings. Manage and explore them below:</p>
-
-  {% if concerts %}
-    <div class="table-responsive">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Event Name</th>
-            <th scope="col">Event Description</th>
-            <th scope="col">Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for concert in concerts %}
-            <tr>
-              <td>{{ concert.EventName }}</td>
-              <td>{{ concert.EventDesc }}</td>
-              <td>
-                <a href="{{ url_for('bookings.edit', id=concert.id) }}" class="btn btn-primary">Edit Booking</a>
-                <a href="{{ url_for('bookings.delete', id=concert.id) }}" class="btn btn-danger">Cancel Booking</a>
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+  <h1 class="text-center">Your Bookings</h1>
+  <div class="card-group">
+    {% for concert in concerts %}
+    <div class="card mx-3 mb-4">
+      <img
+        class="card-img-top"
+        src="{{ concert.EventImage }}"
+        alt="{{ concert.EventName }} Image"
+      />
+      <div class="card-body">
+        <h5 class="card-title">{{ concert.EventName }}</h5>
+        <p class="card-text">{{ concert.EventDesc }}</p>
+        <p class="card-text">Tickets: {{ tickets }}</p>
+      </div>
+      <div class="card-footer">
+        <a
+          href="{{ url_for('bookings.edit', id=concert.id) }}"
+          class="btn btn-primary"
+        >
+          Edit Booking
+        </a>
+        <a
+          href="{{ url_for('bookings.delete', id=concert.id) }}"
+          class="btn btn-danger"
+        >
+          Cancel Booking
+        </a>
+      </div>
     </div>
-  {% else %}
-    <p>No bookings found.</p>
-  {% endif %}
+    {% endfor %}
+  </div>
 </div>
 {% endblock %}

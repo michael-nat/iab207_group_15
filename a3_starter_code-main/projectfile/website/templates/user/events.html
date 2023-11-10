@@ -2,13 +2,10 @@
 
 {% block content %}
 <div class="container">
-    <img src="website/static/image/header.jpeg" class="img-fluid" alt="Header Image">
-    <h2 class="mb-4">My Events</h2>
-    <p class="lead">Here are your events. Manage and explore them below:</p>
+    <h2>My Events</h2>
+    <a href="{{ url_for('events.create_event') }}" class="btn btn-primary">Create new event</a>
 
-    <a href="{{ url_for('events.create_event') }}" class="btn btn-primary">Create a New Event</a>
-
-    <div class="card-group mt-4">
+    <div class="card-group">
         {% for event in user_events %}
         <div class="card mx-3">
             <img class="card-img-top" src="{{ event.EventImage }}" alt="Event Image" />
@@ -23,6 +20,5 @@
         </div>
         {% endfor %}
     </div>
-
 </div>
 {% endblock %}
