@@ -32,16 +32,19 @@ def showEventStatus(id):
     print(TotalTickets)
     print(EventTickets)
 
-    EventStatus = sqlalchemy.select(Concert.EventStatus).where(Concert.id==id)
+    statusQuery = sqlalchemy.select(Concert.EventStatus).where(Concert.id==id)
+    EventStatus = db.session.execute(statusQuery).scalar()
 
-    if (EventStatus == "Cancelled"):
-        pass
-    elif (eventDateTime <= current_dateTime):
+    print(EventStatus)
+    if (eventDateTime <= current_dateTime):
         EventStatus = "Inactive"
     elif (TotalTickets >= EventTickets):
         EventStatus = "Sold Out"
+    elif (EventStatus == "Cancelled"):
+        EventStatus = "Cancelled"
     else:
         EventStatus = "Open"
+
 
     return(EventStatus)
     

@@ -24,17 +24,18 @@ class ConcertForm(FlaskForm):
 
 
 class UpdateConcertForm(FlaskForm):
-    EventName = StringField('Event Name', validators=[InputRequired()])
-    EventDesc = TextAreaField('Description', validators=[InputRequired()])
-    EventImage = FileField('Concert Image', validators=[
-        FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
-    EventDate = DateField('Date and Time', validators=[InputRequired()])
-    EventTime = TimeField('Date and Time', validators=[InputRequired()])
-    EventLocation = StringField('Location', validators=[InputRequired()])
-    EventInfo = StringField('Additional Information', validators=[InputRequired()])
-    EventPrice = StringField('Price', validators=[InputRequired()])
-    EventTicketCount = StringField('Number of Tickets', validators=[InputRequired()])
-    submit = SubmitField("Update")
+  EventName = StringField('Event Name', validators=[InputRequired()])
+  EventDesc = TextAreaField('Description', validators = [InputRequired()])
+  EventImage = FileField('Concert Image', validators=[
+    FileRequired(message='Image cannot be empty'),
+    FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
+  EventDate = StringField('Date', validators=[InputRequired()])
+  EventTime = StringField('Time', validators=[InputRequired()])
+  EventLocation = StringField('Location', validators=[InputRequired()])
+  EventInfo = StringField('Additional Information', validators=[InputRequired()])
+  EventPrice = StringField('Price', validators=[InputRequired()])
+  EventTicketCount = StringField('Number of Tickets', validators=[InputRequired()])
+  submit = SubmitField("Update")
 
 
 # creates the login information

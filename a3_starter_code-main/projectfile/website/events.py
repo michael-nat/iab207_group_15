@@ -56,11 +56,15 @@ def edit_event(id):
     event = Concert.query.get(id)
 
     form = UpdateConcertForm(obj=event)
-
+    
     if form.validate_on_submit():
+        DateResult=form.EventDate.data
+        TimeResult=form.EventTime.data
+        
         event.EventName = form.EventName.data
         event.EventDesc = form.EventDesc.data
-        event.EventDateTime = form.EventDateTime.data
+        event.EventDate = DateResult
+        event.EventTime = TimeResult
         event.EventLocation = form.EventLocation.data
         event.EventInfo = form.EventInfo.data
         event.EventPrice = form.EventPrice.data
@@ -84,7 +88,7 @@ def delete_event(id):
         flash('Event not found or unauthorized', 'danger')
         return redirect(url_for('events.events'))
 
-    db.session.delete(event)
+    event.EventStatus = "Cancelled"
     db.session.commit()
     flash('Event deleted successfully', 'success')
     return redirect(url_for('events.events'))
