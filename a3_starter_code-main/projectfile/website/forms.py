@@ -1,6 +1,6 @@
 
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField
+from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField, DateField, TimeField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from flask_wtf.file import FileRequired, FileField, FileAllowed
 
@@ -14,11 +14,11 @@ class ConcertForm(FlaskForm):
   EventImage = FileField('Concert Image', validators=[
     FileRequired(message='Image cannot be empty'),
     FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
-  EventDateTime = StringField('Date and Time', validators=[InputRequired()])
+  EventDate = DateField('Date', validators=[InputRequired()])
+  EventTime = TimeField('Time', validators=[InputRequired()])
   EventLocation = StringField('Location', validators=[InputRequired()])
   EventInfo = StringField('Additional Information', validators=[InputRequired()])
   EventPrice = StringField('Price', validators=[InputRequired()])
-  EventStatus = SelectField('Status', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('cancelled', 'Cancelled'), ('sold out', 'Sold Out')], validators=[InputRequired()])
   EventTicketCount = StringField('Number of Tickets', validators=[InputRequired()])
   submit = SubmitField("Create")
 
@@ -28,11 +28,11 @@ class UpdateConcertForm(FlaskForm):
     EventDesc = TextAreaField('Description', validators=[InputRequired()])
     EventImage = FileField('Concert Image', validators=[
         FileAllowed(ALLOWED_FILE, message='Only supports PNG, JPG, png, jpg')])
-    EventDateTime = StringField('Date and Time', validators=[InputRequired()])
+    EventDate = DateField('Date and Time', validators=[InputRequired()])
+    EventTime = TimeField('Date and Time', validators=[InputRequired()])
     EventLocation = StringField('Location', validators=[InputRequired()])
     EventInfo = StringField('Additional Information', validators=[InputRequired()])
     EventPrice = StringField('Price', validators=[InputRequired()])
-    EventStatus = SelectField('Status', choices=[('open', 'Open'), ('inactive', 'Inactive'), ('cancelled', 'Cancelled'), ('sold out', 'Sold Out')], validators=[InputRequired()])
     EventTicketCount = StringField('Number of Tickets', validators=[InputRequired()])
     submit = SubmitField("Update")
 

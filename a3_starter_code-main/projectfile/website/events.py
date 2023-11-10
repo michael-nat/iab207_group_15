@@ -21,17 +21,23 @@ def create_event():
     form = ConcertForm()
 
     if form.validate_on_submit():
+        DateResult=form.EventDate.data.strftime("%d/%m/%Y")
+        TimeResult=form.EventTime.data.strftime("%H:%M")
+
+        print(DateResult)
+        print(TimeResult)
         event = Concert(
             EventName=form.EventName.data,
             EventDesc=form.EventDesc.data,
             EventImage=None, 
-            EventDateTime=form.EventDateTime.data,
+            EventDate=DateResult,
             EventLocation=form.EventLocation.data,
             EventInfo=form.EventInfo.data,
             EventPrice=form.EventPrice.data,
-            EventStatus=form.EventStatus.data,  # Remove when event status information is implemented
+            EventStatus='open',
             EventTicketCount=form.EventTicketCount.data,
             UserId=current_user.id,
+            EventTime=TimeResult
         )
 
         if form.EventImage.data:

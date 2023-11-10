@@ -14,37 +14,10 @@ destbp = Blueprint('concert', __name__, url_prefix='/concerts')
 @destbp.route('/<id>')
 def show(id):
     concert = db.session.scalar(db.select(Concert).where(Concert.id==id))
-    status = showEventStatus()
+    status = showEventStatus(id)
     cform = CommentForm()   
     return render_template('concerts/show.html', concert = concert, status = status, form = cform)
 
-@destbp.route('/create', methods = ['GET', 'POST'])
-@login_required
-def create():
-  print('Method type: ', request.method)
-  form = ConcertForm()
-  if form.validate_on_submit():
-    db_file_path = check_upload_file(form)
-    concert = Concert(EventName=form.EventName.data,              
-    EventDesc=form.EventDesc.data,
-    EventImage=db_file_path,
-    EventPrice=form.EventPrice.data,
-    EventDateTime=form.EventDateTime.data,
-    EventLocation=form.EventLocation.data,
-    EventInfo=form.EventInfo.data,
-    EventStatus=form.EventStatus.data,
-    EventTicketCount=form.EventStatus.data,
-    UserID=current_user.id
-    )
-    
-    # add the object to the db session
-    db.session.add(concert)
-    # commit to the database
-    db.session.commit()
-    print('Successfully created new concert', 'success')
-    flash('Event created')
-    return redirect(url_for('concert.create'))
-  return render_template('concerts/create.html', form=form)
 
 def check_upload_file(form):
   #get file data from form  

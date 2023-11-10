@@ -25,7 +25,7 @@ class Concert(db.Model):
     EventName = db.Column(db.String(80))
     EventDesc = db.Column(db.String(200))
     EventImage = db.Column(db.String(400))
-    EventDateTime = db.Column(db.String(100))
+    EventDate = db.Column(db.String(100))
     EventLocation = db.Column(db.String(100))
     EventInfo = db.Column(db.String(200))
     EventPrice = db.Column(db.DECIMAL(9, 2))
@@ -33,6 +33,7 @@ class Concert(db.Model):
     EventTicketCount = db.Column(db.Integer)
     UserId = db.Column(db.Integer, db.ForeignKey('User.id'))
     userCreator = db.relationship('User', backref='events_created')
+    EventTime = db.Column(db.String(100))
     # ... Create the Comments db.relationship
     # relation to call destination.comments and comment.destination
     Comments = db.relationship('Comment', backref='concert')
