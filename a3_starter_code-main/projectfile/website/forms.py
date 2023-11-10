@@ -3,6 +3,11 @@ from flask_wtf import FlaskForm
 from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField, IntegerField, SelectField, DateField, TimeField
 from wtforms.validators import InputRequired, Length, Email, EqualTo
 from flask_wtf.file import FileRequired, FileField, FileAllowed
+from flask import request
+from .models import Concert
+from wtforms import ValidationError
+
+
 
 ALLOWED_FILE = {'PNG', 'JPG', 'JPEG', 'png', 'jpg', 'jpeg'}
 
@@ -60,6 +65,14 @@ class RegisterForm(FlaskForm):
 class BookingForm(FlaskForm):
     TicketQuantity = IntegerField('Number of Tickets', validators=[InputRequired()])
     submit = SubmitField("Purchase")
+
+    def validate_TicketQuantity(self, field):
+        # Assuming you have a relationship between Booking and Concert models
+        event_id = request.args.get('EventID')  
+        concert = Concert.query.get(event_id)
+
+        if Concert.EventStatus != 'open':
+            raise ValidationError('Tickets can only be sold for events with "open" status')
 
 class UpdateBookingForm(FlaskForm):
     TicketQuantity = IntegerField('Number of Tickets', validators=[InputRequired()])
