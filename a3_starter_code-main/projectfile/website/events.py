@@ -88,7 +88,7 @@ def delete_event(id):
         flash('Event not found or unauthorized', 'danger')
         return redirect(url_for('events.events'))
 
-    db.session.delete(event)
+    event.EventStatus = "Cancelled"
     db.session.commit()
     flash('Event deleted successfully', 'success')
     return redirect(url_for('events.events'))
