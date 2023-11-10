@@ -14,9 +14,10 @@ destbp = Blueprint('concert', __name__, url_prefix='/concerts')
 @destbp.route('/<id>')
 def show(id):
     concert = db.session.scalar(db.select(Concert).where(Concert.id==id))
-    status = showEventStatus(id)
+    eventStatus = showEventStatus(id)
+    print(eventStatus)
     cform = CommentForm()   
-    return render_template('concerts/show.html', concert = concert, status = status, form = cform)
+    return render_template('concerts/show.html', concert = concert, status = eventStatus, form = cform)
 
 
 def check_upload_file(form):

@@ -12,36 +12,38 @@ import os
 #TicketCount = 300
 
 #TotalTickets2 = 302
-# class eventStatus(id):
 
 def showEventStatus(id):
     current_dateTime = datetime.now()
     date = db.session.scalar(db.select(Concert.EventDate).where(Concert.id==id))
-    eventDate = date
-    print(eventDate)
+    time = db.session.scalar(db.select(Concert.EventTime).where(Concert.id==id))
+    dateTime_string = date + " " + time + ":00"
+    eventDateTime = datetime.strptime(dateTime_string, '%d/%m/%Y %H:%M:%S')
 
-    time = db.session.scalar(db.select(Concert.EventDate).where(Concert.id==id))
-    eventTime = time
-    print(eventTime)
+    TotalQuery = sqlalchemy.select(sqlalchemy.func.sum(Booking.TicketQuantity)).where(Booking.EventID==id)
+    EventQuery = sqlalchemy.select(Concert.EventTicketCount).where(Concert.id==id)
 
+    TotalTickets = db.session.execute(TotalQuery).scalar()
+    EventTickets = db.session.execute(EventQuery).scalar()
 
-    TotalTickets = sqlalchemy.select(sqlalchemy.func.sum(Booking.TicketQuantity)).where(Booking.EventID==id)
-    EventTickets = sqlalchemy.select(Concert.EventTicketCount).where(Concert.id==id)
+    if TotalTickets == None:
+        TotalTickets = 0
 
-    concert = db.session.scalar(db.select(Concert.EventTicketCount).where(Concert.id==id))
+    print(TotalTickets)
+    print(EventTickets)
 
     EventStatus = sqlalchemy.select(Concert.EventStatus).where(Concert.id==id)
 
     if (EventStatus == "Cancelled"):
         pass
-    elif (eventDate > current_dateTime):
+    elif (eventDateTime <= current_dateTime):
         EventStatus = "Inactive"
     elif (TotalTickets >= EventTickets):
         EventStatus = "Sold Out"
     else:
         EventStatus = "Open"
 
-    print(EventStatus)
+    return(EventStatus)
     
 
 
