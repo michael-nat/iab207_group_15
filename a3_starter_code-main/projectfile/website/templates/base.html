@@ -9,6 +9,18 @@
       integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ"
       crossorigin="anonymous"
     />
+
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+
+      .content {
+        flex: 1;
+      }
+    </style>
   </head>
 
   <body>
@@ -81,8 +93,8 @@
 
     {% block content %} {% endblock %}
 
-    <footer class="footer">
-      <div class="text-center py-2 bg-light">
+    <footer class="footer mt-auto py-2 bg-light">
+      <div class="text-center">
         <span class="text-dark">Copyright &copy; {{year}}</span>
       </div>
     </footer>
