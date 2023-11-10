@@ -17,7 +17,8 @@
       <div class="card-body">
         <h5 class="card-title">{{ concert.EventName }}</h5>
         <p class="card-text">{{ concert.EventDesc }}</p>
-        <p class="card-text">Tickets: {{ tickets }}</p>
+        <p class="card-text">Tickets: {{ tickets[loop.index-1].TicketQuantity }}</p>
+
       </div>
       <div class="card-footer">
         <a

@@ -17,22 +17,14 @@ def userbookings():
     userresult = db.session.execute(userquery).scalars()
     userbookings = userresult.all()
     
-    showtickets = db.select(Booking.TicketQuantity).where(Booking.EventID==id).where(Booking.UserID==id)    
-    ticketresult = db.session.execute(showtickets).scalars()
-    ticketbook = ticketresult.all()
-    # print(userbookings)
-    
     concerts = db.session.scalars(db.select(Concert).where(Concert.id.in_(userbookings)))
-    usertickets = db.session.scalar(db.select(Booking.TicketQuantity).where(Booking.id.in_(ticketbook)))
-    
-    print(showtickets)
-    print(ticketresult.first())
-    print(ticketbook)
-    print(usertickets)
+    tickets = db.session.scalars(db.select(Booking).where(Booking.UserID == id))
 
+
+    results = tickets.all()
     
     
-    return render_template('user/bookings.html',concerts = concerts, tickets = usertickets)
+    return render_template('user/bookings.html',concerts = concerts, tickets = results)
 
 
 
